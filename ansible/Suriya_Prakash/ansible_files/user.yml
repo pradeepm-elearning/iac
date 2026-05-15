@@ -1,0 +1,12 @@
+---
+- name: User creation
+  hosts: demo
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: User
+     user:
+      name: "{{ mongo }}"
+      #password: cc123
+      state: absent

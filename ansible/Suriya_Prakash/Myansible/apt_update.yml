@@ -1,0 +1,14 @@
+---
+- name: install softwars
+  hosts: demo
+  become: yes
+  become_user: root
+  tasks:
+   - name: install
+     apt:
+      pkg:
+       - vim
+       - git
+      state: present
+      update_cache: yes
+      

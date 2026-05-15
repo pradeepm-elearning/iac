@@ -1,0 +1,13 @@
+---
+- name: environment
+  hosts: demo
+  become: yes
+  become_user: root
+  tasks:
+   - name: environment variable 
+     lineinfile:
+       dest: /etc/profile_old
+       state: present
+       backrefs: yes
+       regexp: '^MONGODB_HOME'
+       line: 'MONGODB_HOME=/opt/mongodb/mongodb-linux-x86_64-2.4.10'

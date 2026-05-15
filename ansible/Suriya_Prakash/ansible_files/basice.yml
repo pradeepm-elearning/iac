@@ -1,0 +1,15 @@
+---
+- name: basice software
+  hosts: '{{ system }}'
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks: 
+   - name: software
+     apt:
+      pkg:
+       - git
+       - vim
+       - mysql-workbench
+       - filezilla 
+      state: latest

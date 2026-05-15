@@ -1,0 +1,47 @@
+---
+- name: Mongod Install
+  hosts: demo
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: Create user
+     user:
+      name: "{{ mdbuser }}"
+      state: present
+   - name: Create data_db folder
+     file:
+      path: "{{ item }}"
+      state: directory
+      owner: "{{ mdbuser }}"
+      group: "{{ mdbuser }}"
+      mode: '0755'
+     with_items:
+      - '/data/db/'
+      - '/opt/mongodb'
+   - name: Unarchive tar file
+     unarchive:
+      src: "{{ mongod }}"
+      dest: /opt/mongodb
+   - name: Perimission path
+     file:
+       path: "{{ item }}"
+       owner: "{{ mdbuser }}"
+       group: "{{ mdbuser }}"
+       mode: '0755'
+       recurse: yes
+     with_items:
+      - '/data/db/'
+      - '/opt/mongodb'
+   - name: Add the profile path
+     lineinfile:
+      dest: /etc/profile
+      line: |
+       export MONGODB_HOME=/opt/mongodb/mongodb-linux-x86_64-2.4.9
+       export PATH=$PATH:$HOME/bin:$MONGODB_HOME/bin
+      insertafter: 'EOF'
+      state: present
+   - name: source profile path
+     shell: source /etc/profile
+     args:
+      executable: /bin/bash

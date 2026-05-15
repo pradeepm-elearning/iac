@@ -1,0 +1,8 @@
+---
+- name: Mysql_Dump
+  hosts: local
+  #become: yes
+  tasks:
+   - name: dump
+     shell: 'mysqldump -h 192.168.1.22 -u root -p Cc#Sys22_43 cce_v2_tcuat > -e "show databases;"'
+     register: dblist

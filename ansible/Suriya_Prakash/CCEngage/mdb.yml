@@ -1,0 +1,4 @@
+mongod: /home/ciserver/mongodb-linux-x86_64-2.4.9.tgz
+java: jdk-8u60-linux-x64.tar.gz
+tomcat: apache-tomcat-7.0.78.tar.gz
+mdbuser: mongouser

@@ -1,0 +1,14 @@
+---
+- name: Beyond install
+  hosts: '{{ system }}'
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: Copy file
+     copy:
+      src: /home/ciserver/software/deb/bcompare-4.3.3.24545_amd64.deb
+      dest: /opt/
+   - name: Beyond install beb file
+     apt:
+      deb: /opt/bcompare-4.3.3.24545_amd64.deb

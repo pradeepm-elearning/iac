@@ -1,0 +1,13 @@
+---
+- name: copy
+  hosts: sys9
+  tasks:
+   - name: copy to localsytem
+     copy:
+      src: /home/ciserver/surya/sqldeveloper_4.0.3.16.84-2_all.deb
+      dest: /home/satham/Desktop/sqldeveloper_4.0.3.16.84-2_all.deb
+      owner: satham
+      group: satham
+      mode: '0755'
+    
+      

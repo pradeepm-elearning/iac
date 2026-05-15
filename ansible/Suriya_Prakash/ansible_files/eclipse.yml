@@ -1,0 +1,25 @@
+---
+- name: eclipse install
+  hosts: '{{ system }}'
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+ # hosts: '{{ ip }}'
+  tasks:
+   - name: Unarchive tar file
+     unarchive:
+      src: '{{ eclipse }}'
+      dest: '/opt/'
+      owner: '{{ user }}'
+      group: '{{ user }}'
+      mode: '0755'
+   - name: Create symbolic link 
+     file: 
+      src: "/opt/eclipse/eclipse"
+      dest: "/usr/bin/eclipse"
+      state: link
+      owner: '{{ user }}'
+      group: '{{ user }}'
+      mode: '0755'
+#  with_items:
+ #   - { user: demo }

@@ -1,0 +1,29 @@
+---
+- name: mongod install
+  hosts: demo
+  become_user: root
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: make directory
+     file:
+      path: /opt/mongod
+      state: directory
+   - name: copy file
+     copy:
+      src: '/home/ciserver/{{ mongod }}'
+      dest: /opt/mongod/
+   - name: unarchive file
+     unarchive:
+      src: '/home/ciserver/{{ mongod }}'
+      dest: /opt/mongod/
+   - name: permission
+     file:
+      path: /opt/mongod
+      owner: demo
+      group: demo
+      mode: '0755'
+      state: directory
+      recurse: yes
+      

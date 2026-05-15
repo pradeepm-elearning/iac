@@ -1,0 +1,12 @@
+---
+- name: deb file
+  hosts: sys19
+  sudo: yes
+  sudo_user: root
+  tasks: 
+   - name: install
+     ignore_errors: yes
+     apt:
+      deb: /home/sys19/bcompare-4.3.3.24545_amd64.deb
+      state: present
+

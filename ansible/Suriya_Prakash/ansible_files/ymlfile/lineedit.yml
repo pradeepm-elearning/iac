@@ -1,0 +1,12 @@
+---
+- name: edit
+  hosts: demo
+  become: yes
+  tasks:
+   - name: line editing
+     lineinfile:
+      path: /home/demo/Desktop/server.xml
+      state: present
+      backrefs: yes
+      regexp: '<Connector port="8080"'
+      line: <Connector port="8084"

@@ -1,0 +1,19 @@
+---
+- name: Sql developer
+  hosts: '{{ system }}'
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: Copy deb file
+     copy:
+      src: /home/ciserver/software/deb/sqldeveloper_19.2.1-248.2212_all.deb
+      dest: /opt/
+   - name: Install deb file
+     apt:
+      deb: /opt/sqldeveloper_19.2.1-248.2212_all.deb
+   - name: Permission
+     file: 
+      path: /opt/sqldeveloper
+      owner: '{{ user }}'
+      group: '{{ user }}'

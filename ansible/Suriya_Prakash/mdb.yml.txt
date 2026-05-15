@@ -1,0 +1,12 @@
+mongod: /home/ciserver/software/tar/mongodb-linux-x86_64-2.4.9.tgz
+java: /home/ciserver/software/tar/jdk-8u60-linux-x64.tar.gz
+tomcat: /home/ciserver/software/tar/apache-tomcat-7.0.78.tar.gz
+mdbuser: mongouser
+robomongo: robomongo-0.9.0-linux-x86_64-0786489
+eclipse: /home/ciserver/software/tar/eclipse-jee-luna-SR1-linux-gtk-x86_64.tar.gz
+activemq: /home/ciserver/software/tar/apache-activemq-5.13.3-bin.tar.gz
+postman: /home/ciserver/software/tar/postman.tar.gz
+spark: /home/ciserver/software/tar/spark/spark_2_8_3.tar.gz
+spark.desktop: /home/ciserver/software/tar/spark/spark.desktop
+user: suresh
+system: sys32

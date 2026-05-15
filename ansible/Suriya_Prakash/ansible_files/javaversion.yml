@@ -1,0 +1,12 @@
+---
+- name: java version
+  hosts: demo
+  become: yes
+  tasks:
+   - name: check java version
+     shell: java -version 2>&1 | grep version | awk 'FNR == 1 {print}'                                                                                                                                   
+     changed_when: False
+     register: java_result
+
+   - debug:
+       msg: "{{ java_result.stdout }}"

@@ -1,0 +1,10 @@
+---
+- name: server start
+  hosts: aws
+  become: true
+  tasks:
+   - name: start and enable
+     service:
+       name: cockpit
+       state: started
+       

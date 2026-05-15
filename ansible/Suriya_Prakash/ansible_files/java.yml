@@ -1,0 +1,62 @@
+---
+- name: Install Java
+  hosts: '{{ system }}'
+  #port: 1122
+  become: yes
+  #become_method: sudo
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: Create java folder in opt
+     file:
+      path: /opt/java
+      state: directory
+#   - name: Copy tar file from source location
+ #    copy:
+  #    src: '/home/ciserver/{{ java }}'
+   #   dest: /opt/java/
+   - name: Unarchive tar file
+     unarchive:
+      src: '{{ java }}'
+      dest: /opt/java/
+   - name: Permission for java folder
+     file:
+      path: /opt/java
+      owner: root
+      group: root
+      mode: '0755'
+      state: directory
+      recurse: yes
+   - name: Set the environment veriable
+     lineinfile:
+      dest: /etc/profile
+      line: |   
+        export JAVA_HOME=/opt/java/jdk1.8.0_60
+        export PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+        export JRE_HOME=/opt/java/jdk1.8.0_60/jre
+        export PATH=$PATH:$HOME/bin:$JRE_HOME/bin 
+      insertafter: 'EOF'
+      state: present
+     when: not ansible_check_mode
+   - name: source profile path
+     shell: source /etc/profile
+     args:
+      executable: /bin/bash
+   - name: alternatives in /usr/bin
+     shell: |
+      update-alternatives --install "/usr/bin/java" "java" "/opt/java/jdk1.8.0_60/jre/bin/java" 1
+      update-alternatives --install "/usr/bin/javac" "javac" "/opt/java/jdk1.8.0_60/bin/javac" 1
+      update-alternatives --install "/usr/bin/javaws" "javaws" "/opt/java/jdk1.8.0_60/bin/javaws" 1
+   - name: The connection of “java” package
+     shell: |
+      update-alternatives --set java /opt/java/jdk1.8.0_60/jre/bin/java
+      update-alternatives --set javac /opt/java/jdk1.8.0_60/bin/javac
+      update-alternatives --set javaws /opt/java/jdk1.8.0_60/bin/javaws
+   - name: check java version
+     shell: java -version 2>&1 | grep version | awk '{print $3}' | sed 's/"//g'                                                                                         
+     changed_when: False
+     register: java_result
+
+   - debug:
+       msg: "{{ java_result.stdout }}"
+

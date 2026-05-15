@@ -1,0 +1,9 @@
+---
+- name: httpd
+  hosts: aws
+  become: true
+  tasks:
+   - name: httpd stop
+     service:
+      name: httpd
+      state: stopped 

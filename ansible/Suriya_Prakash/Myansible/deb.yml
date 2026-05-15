@@ -1,0 +1,10 @@
+---
+- name: bcompare
+  hosts: sys19
+  #become: true
+  tasks:
+   - name: deb file install
+     shell: sudo dpkg --force-confdef -i /opt/bcompare-4.3.3.24545_amd64.deb
+     become_user: root
+     become_method: sudo
+     

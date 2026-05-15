@@ -1,0 +1,15 @@
+[sys19]
+192.168.1.19 ansible_user=sys19 ansible_ssh_pass=cc123
+[sys9]
+192.168.1.9 ansible_user=satham ansible_ssh_pass=cc123
+[aws]
+13.126.224.97 ansible_user=ansibleclient ansible_ssh_pass=aws@123
+[local]
+192.168.1.22 ansible_user=appuser ansible_ssh_pass=cc123 ansible_port=4522
+[sys24]
+192.168.1.24 ansible_user=vivian ansible_ssh_pass=cc123
+[vm]
+192.168.1.237 ansible_user=suriya ansible_ssh_pass=cc123 ansible_ssh_port=22
+[demo]
+192.168.1.105 ansible_user=demo	ansible_ssh_pass=cc123
+192.168.1.19 ansible_user=sys19 ansible_ssh_pass=cc123

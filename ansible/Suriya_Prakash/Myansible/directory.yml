@@ -1,0 +1,14 @@
+---
+- name: directory
+  hosts: demo
+  become_user: root
+  become: true
+  tasks:
+   - name: mongod
+     file:
+      path: /opt/mongod
+      owner: demo
+      group: demo
+      mode: '0755'
+      state: directory
+      recurse: yes

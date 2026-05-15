@@ -1,0 +1,11 @@
+---
+- hosts: sabary
+  remote_user: appuser
+  gather_facts: false
+  become: yes
+  become_method: sudo
+  tasks: 
+   - name: Installing httpd webserver
+     apt: name=httpd state=present enabled=yes
+   - name: start httpd server after install
+     service: name=https state=started  

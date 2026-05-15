@@ -1,0 +1,12 @@
+---
+- import_playbook: aptitude.yml
+- import_playbook: basice.yml
+- import_playbook: java.yml
+- import_playbook: eclipse.yml
+- import_playbook: software.yml
+- import_playbook: spark.yml
+- import_playbook: robomongo.yml
+- import_playbook: postman.yml
+- import_playbook: activemq.yml
+- import_playbook: sqldeveloper.yml
+

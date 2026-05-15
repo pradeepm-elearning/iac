@@ -1,0 +1,19 @@
+---
+- name: notepadqq
+  hosts: '{{ system }}'
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: add repository
+     apt_repository:
+      repo: 'add-apt-repository ppa:notepadqq-team/notepadqq'
+      state: present
+      filename: notepadqq
+      update_cache: yes
+   - name: install notepadqq
+     apt:
+      name: notepadqq
+      state: present
+      update_cache: yes
+

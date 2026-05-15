@@ -1,0 +1,9 @@
+---
+- name: bcompare
+  hosts: sys23
+  become: yes
+  tasks:
+   - name: install deb file
+     apt:
+      deb: /opt/mysql-workbench-community_8.0.18-1ubuntu18.04_amd64.deb
+      

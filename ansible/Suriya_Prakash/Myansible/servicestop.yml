@@ -1,0 +1,26 @@
+---
+- name: tomcat server
+  hosts: local
+  sudo: yes
+  sudo_user: appuser
+  tasks:
+    - name: stop server
+      ignore_errors: yes
+      shell: "ps -ef | grep tomcat | awk '{print $2}'"
+      register: tomcat
+    
+    - name: Force kill stuck processes
+      ignore_errors: yes
+      shell: "kill -9 {{ item }}"
+      with_items: "{{ tomcat }}"
+    - wait_for:
+        path: "/proc/{{ item }}/status"
+        state: absent
+      with_items: "{{ tomcat }}"
+      ignore_errors: yes
+      register: killed_processes
+
+    - name: Force kill stuck processes
+      ignore_errors: yes
+      shell: "kill -9 {{ item }}"
+      with_items: "{{ killed_processes.results | select('failed') | map(attribute='item') | list }}"

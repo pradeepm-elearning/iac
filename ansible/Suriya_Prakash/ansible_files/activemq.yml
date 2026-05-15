@@ -1,0 +1,39 @@
+---
+- name: Mongod Install
+  hosts: '{{ system }}'
+ # port: 4522
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: Create activemq folder in opt
+     file:
+      path: /opt/activemq
+      state: directory
+   - name: Unarchive tar file
+     unarchive:
+      src: '{{ activemq }}'
+      dest: /opt/activemq/
+   - name: Permission for activemq folder
+     file:
+      path: /opt/activemq
+      owner: '{{ user }}'
+      group: '{{ user }}'
+     # mode: '0755'
+      state: directory
+      recurse: yes
+   - name: Set the environment veriable
+     lineinfile:
+      dest: /etc/profile
+      line: |   
+        export ACTIVEMQ_HOME=/opt/activemq/apache-activemq-5.13.3-bin.tar.gz
+        export PATH=$PATH:$HOME/bin:$ACTIVEMQ_HOME/bin
+      insertafter: 'EOF'
+      state: present
+   #  when: not ansible_check_mode
+   - name: source profile path
+     shell: source /etc/profile
+     args:
+      executable: /bin/bash
+
+

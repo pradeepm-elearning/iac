@@ -1,0 +1,32 @@
+---
+- name: Robomongo install
+  hosts: '{{ system }}'
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks: 
+   - name: Create robomongo folder
+     file:
+      path: /opt/robomongo
+      state: directory
+      owner: '{{ user }}'
+      group: '{{ user }}'
+   - name: Unarchive tar file
+     unarchive:
+      src: '/home/ciserver/software/tar/{{ robomongo }}.tar.gz'
+      dest: /opt/robomongo/
+      owner: '{{ user }}'
+      group: '{{ user }}'
+      mode: '0755'  
+      #state: directory
+  #    recurse: yes
+   - name: Create symbolic link 
+     file: 
+      src: "/opt/robomongo/{{ robomongo }}/bin/robomongo"
+      dest: "/usr/bin/robomongo"
+      state: link
+      owner: '{{ user }}'
+      group: '{{ user }}'
+      
+   
+     

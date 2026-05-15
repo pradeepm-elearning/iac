@@ -1,0 +1,16 @@
+---
+- name: software
+  hosts: '{{ system }}'
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: basice software
+     copy:
+      src: /home/ciserver/software/deb/
+      dest: /opt/
+   - name: installed
+     apt:
+      deb: '{{ item }}'
+     loop:
+      - /opt/google-chrome-stable_current_amd64.deb

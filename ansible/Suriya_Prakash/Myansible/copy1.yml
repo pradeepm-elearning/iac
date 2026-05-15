@@ -1,0 +1,12 @@
+---
+ - hosts: sys19  
+   tasks:  
+    - name: copy one server to another server
+      become: true
+      synchronize: 
+        src: $HOME/Desktop/smj.CSV 
+        dest: $Home/Desktop/
+        remote_src: true
+      delegate_to: sys9
+     
+     

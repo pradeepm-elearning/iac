@@ -1,0 +1,4 @@
+---
+- import_playbook: java.yml
+- import_playbook: tomcat.yml
+- import_playbook: mongo.yml

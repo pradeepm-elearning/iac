@@ -1,0 +1,41 @@
+---
+- name: Spark
+  hosts: '{{ system }}'
+  become: yes
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: spark dependency
+     apt:
+      pkg:
+       - libxtst6:i386
+       - libxi6:i386
+       - libxrender1:i386
+      update_cache: yes
+      state: present
+   - name: Unarchive tar file
+     unarchive:
+      src: '{{ spark }}'
+      dest: '/opt/'
+      owner: '{{ user }}'
+      group: '{{ user }}'
+   - name: Create symbolic link 
+     file: 
+      src: "/opt/Spark/Spark"
+      dest: "/usr/bin/Spark"
+      state: link
+      owner: '{{ user }}'
+      group: '{{ user }}'
+   - name: Copy file to desktop file
+     copy:
+      src: /home/ciserver/software/tar/spark/spark.desktop
+      dest: /usr/share/applications/spark.desktop
+      owner: '{{ user }}'
+      group: '{{ user }}'
+   - name: Add host
+     lineinfile:
+      dest: /etc/hosts
+     # insertbefore: '</tomcat-users>'
+      line: 192.168.0.35    ccblrsrv2openproject
+      state: present
+

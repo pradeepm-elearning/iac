@@ -1,0 +1,47 @@
+---
+- name: tomcat install
+  hosts: '{{ system }}'
+ # port: 4522
+  become: yes
+ # become_user: sudo
+  vars_files:
+   - /opt/mdb.yml
+  tasks:
+   - name: create folder
+     file:
+      path: /opt/tomcat
+      state: directory
+   - name: src
+     copy:
+      src: '{{ tomcat }}'
+      dest: /opt/tomcat/
+   - name: unarchive tar file
+     unarchive:
+      src: '{{ tomcat }}'
+      dest: /opt/tomcat/
+   - name: Permission for tomcat folder
+     file:
+      path: /opt/tomcat
+      owner: '{{ user }}'
+      group: '{{ user }}'
+      mode: '755'
+      state: directory
+      recurse: yes
+   - name: Set the environment veriable
+     lineinfile:
+      dest: /etc/profile
+      line: |   
+        export CATALINA_HOME=/opt/tomcat/apache-tomcat-7.0.78
+        export PATH=$PATH:$HOME/bin:$CATALINA_HOME/bin
+      insertafter: 'EOF'
+      state: present
+   - name: source profile path
+     shell: source /etc/profile
+     args:
+      executable: /bin/bash
+   - name: tomcat user
+     lineinfile:
+      dest: /opt/tomcat/apache-tomcat-7.0.78/conf/tomcat-users.xml
+      insertbefore: '</tomcat-users>'
+      line: <user username="admin" password="admin" roles="manager-gui,admin-gui"/>
+      state: present

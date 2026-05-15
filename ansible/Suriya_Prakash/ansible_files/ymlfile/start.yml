@@ -1,0 +1,17 @@
+---
+- name: start tomcat server
+  hosts: demo
+  tasks: 
+   - name: start
+     shell: "/opt/tomcat/apache-tomcat-7.0.78/bin/startup.sh"
+     #args:
+      #executable: "/bin/bash"
+     # chdir: /opt/tomcat/apache-tomcat-7.0.78/bin/
+     #shell: /opt/tomcat/apache-tomcat-7.0.78/bin/startup.sh | awk 'FNR == 6 {print}'
+     
+     #changed_when: False 
+     #register: tomcat_result
+
+   #- debug:
+     # msg: "{{ tomcat_result.stdout }}"
+ 
