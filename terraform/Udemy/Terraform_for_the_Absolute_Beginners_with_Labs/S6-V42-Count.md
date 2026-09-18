@@ -1,23 +1,22 @@
-COUNT
+#### COUNT
 
-Its a meta arguments.
-It is used to create multiple instances of local file.
+<p> Its a meta arguments. It is used to create multiple instances of local file. </p>
 
-main.tf 
-
+create `main.tf` file 
+```
 resource "local_file" "pet" {
     filename = var.filename
     content = "I love Pets"
     count = 3
 }
+```
 
-
-variables.tf
-
+create `variables.tf` file
+```
 variable "filename" {
     default = "/root/pets.txt"
 }
-
+```
 
 However, there's one problem with this approach. Since we have only specified the count terraform will try to create the same resource 3 times since the file name is not unique terraform will recreate the same file 3 times, rather than creating 3 separate files.
 
