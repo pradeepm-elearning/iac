@@ -1,3 +1,4 @@
 ansible/code/terraform/aws/ccai-dev/hyd/ec2/ansible_practice/terraform.tfstate
 ansible/code/terraform/aws/ccai-dev/hyd/ec2/ansible_practice/terraform.tfstate.backup
-
+ansible/code/terraform/aws/ccai-dev/hyd/ec2/ansible_practice/.terraform
+ansible/code/terraform/aws/ccai-dev/hyd/ec2/ansible_practice/.terraform.lock.hcl

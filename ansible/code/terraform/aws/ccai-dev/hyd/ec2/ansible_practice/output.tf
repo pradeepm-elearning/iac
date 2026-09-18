@@ -30,6 +30,5 @@ output "ansible_test_win_client_public_ip" {
 
 output "ansible_test_win_client_password" {
   description = "Administrator password of the ansible test windows client instance"
-  value       = nonsensitive(rsadecrypt(aws_instance.ansible_test_win_client.password_data, file("D:/TEMP/PRACTICE/aws_keys/kp-ccai-dev-hyd-ansible_test-ubuntu.pem")))
+  value       = nonsensitive(rsadecrypt(aws_instance.ansible_test_win_client.password_data, file("~/azure_repo/CC-AgenticAI/AIOps/cloud/aws/ccai-dev/keys/hyderabad/kp-ccai-dev-hyd-ansible_test-ubuntu.pem")))
 }
-
