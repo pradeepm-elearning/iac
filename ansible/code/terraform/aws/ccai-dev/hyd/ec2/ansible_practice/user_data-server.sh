@@ -46,3 +46,4 @@ sudo -u "$TARGET_USER" chmod 644 "$SSH_DIR/id_rsa.pub"
 # Optionally, add the generated public key to authorized_keys for local key-based testing
 sudo -u "$TARGET_USER" cat "$SSH_DIR/id_rsa.pub" >> "$SSH_DIR/authorized_keys"
 sudo -u "$TARGET_USER" chmod 600 "$SSH_DIR/authorized_keys"
+
