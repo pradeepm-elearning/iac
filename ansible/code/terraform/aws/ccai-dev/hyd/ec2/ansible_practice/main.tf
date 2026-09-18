@@ -50,21 +50,39 @@ resource "aws_instance" "ansible_test_server" {
   }
 }
 
-# 2. Ansible Test Clients (3 x t4g.small)
-resource "aws_instance" "ansible_test_client" {
-  count                = 3
-  ami                  = data.aws_ami.ubuntu.id
-  instance_type        = "t4g.small"
-  key_name             = "kp-ccai-dev-hyd-ansible_test-ec2-user"
-  security_groups      = [aws_security_group.ansible_test_allow_all.name]
+# # 2. Ansible Test Clients (3 x t4g.small)
+# resource "aws_instance" "ansible_test_client" {
+#   count                = 3
+#   ami                  = data.aws_ami.ubuntu.id
+#   instance_type        = "t4g.small"
+#   key_name             = "kp-ccai-dev-hyd-ansible_test-ec2-user"
+#   security_groups      = [aws_security_group.ansible_test_allow_all.name]
+#   associate_public_ip_address = true
+#   user_data            = file("${path.module}/user_data-client.sh")
+
+#   root_block_device {
+#     volume_size = 8
+#   }
+
+#   tags = {
+#     Name = "ansible_test_client-${count.index + 1}"
+#   }
+# }
+
+# 3. Ansible Test Windows Client (t3.medium)
+resource "aws_instance" "ansible_test_win_client" {
+  ami                         = "ami-0cb49bbe58aca3539"
+  instance_type               = "t3.medium"
+  key_name                    = "kp-ccai-dev-hyd-ansible_test-ec2-user"
+  security_groups             = [aws_security_group.ansible_test_allow_all.name]
   associate_public_ip_address = true
-  user_data            = file("${path.module}/user_data-client.sh")
+  get_password_data           = true
 
   root_block_device {
-    volume_size = 8
+    volume_size = 30
   }
 
   tags = {
-    Name = "ansible_test_client-${count.index + 1}"
+    Name = "ansible_test_win_client"
   }
 }

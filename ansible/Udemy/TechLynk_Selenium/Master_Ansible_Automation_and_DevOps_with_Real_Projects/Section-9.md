@@ -115,3 +115,60 @@ debug:
 msg: "var1={{ var1 }} var2={{ var2 }}"
 ```
 `ansible-playbook <<playbook_FILE>>.yml -e "varl=custom_value_1 var2=custom_value_2"`
+
+---
+#### 46. Ansible Terminology : ansible_hostname and inventory_hostname
+ansible_hostname and inventory_hostname are variables that refer to different aspects of the hosts managed by Ansible.
+
+ansible_hostname:
+
+o ansible_hostname is a fact gathered by Ansible when it performs the
+setup module on a host. It represents the hostname of the target
+machine as reported by the operating system.
+
+It is used to refer to the actual hostname of the machine being
+managed
+
+inventory_hostname:
+
+o inventory_hostname is the name of the host as specified in the
+Ansible inventory file.
+
+o It is used to refer to the host within the context of the inventory and
+Ansible playbook.
+
+```
+- name: Example playbook to demonstrate ansible_hostname vs inventory_hostname
+hosts: webservers
+gather_facts: yes
+
+tasks:
+- name: Display inventory_hostname
+debug:
+msg: "inventory_hostname: {{ inventory_hostname
+
+- name: Display ansible_hostname
+debug:
+msg: "ansible_hostname: {{ ansible_hostname
+```
+---
+#### 47. Set Environment Per Task or Play
+o
+
+O
+
+o
+
+User can set environment variables for tasks or entire plays using the
+environment directive.
+
+This is useful when you need to ensure that certain environment
+variables are set for the commands or scripts that you are running on
+remote hosts.
+
+Use cases :
+Running Commands with Specific Environment Variables.
+Configuring Paths - PATH to include directories where custom binaries
+Setting Application-Specific Variables - Database connection string
+API keys.
+
